@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'edamam_ruby/version'
+require 'edamam-ruby/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "edamam_ruby"
-  spec.version       = EdamamRuby::VERSION
+  spec.name          = "edamam-ruby"
+  spec.version       = Edamam::VERSION
   spec.authors       = ["Olalekan Eyiowuawi"]
   spec.email         = ["olalekan.eyiowuawi@andela.com"]
 

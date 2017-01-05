@@ -1,2 +1,2 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "edamam_ruby"
+require "edamam-ruby"
