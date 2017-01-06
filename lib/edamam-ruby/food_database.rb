@@ -1,6 +1,6 @@
 module Edamam
   class FoodDatabase
-    include Rest::Utils
+    # include Rest::Utils
 
     def initialize(client)
       @client = client
