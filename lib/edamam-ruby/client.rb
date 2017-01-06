@@ -1,7 +1,6 @@
 module Edamam
   class Client
-    attr_accessor :api_key, :app_id
-    def_delegators :@food_database, :request
+    attr_accessor :api_key, :app_id, :food_database
     def initialize(**args)
       args.each_pair do |attribute, value|
         instance_variable_set("@#{attribute}", value)
