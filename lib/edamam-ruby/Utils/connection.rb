@@ -39,10 +39,10 @@ module Edamam
       end
 
       def encode_path_params(path, params)
-        encoded = URI.encode_www_form(params)
-        [path, encoded].join("?")
+        encoded_path = URI.encode_www_form(params)
+        unescaped_encoded_path = [path, encoded_path].join("?").gsub(/\+/, " ")
+        URI.escape(unescaped_encoded_path)
       end
-
     end
 
   end
