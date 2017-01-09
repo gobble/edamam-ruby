@@ -9,7 +9,7 @@ RSpec.describe Edamam::FoodDatabase do
 
   describe "#request" do
     it "returns a json object" do
-      request = food_database.request("1 large apple")
+      request = food_database.request("1 large chicken")
     end
   end
 end
