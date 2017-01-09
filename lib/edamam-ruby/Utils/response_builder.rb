@@ -8,7 +8,16 @@ module Edamam
       end
 
       def call
-        response = OpenStruct.new(body.merge(code: code))
+        build_response_based_on_status_code
+      end
+      
+      private
+      def build_response_based_on_status_code
+        if code == "200"
+          OpenStruct.new(body.merge(code: code))
+        else code == "401"
+          OpenStruct.new(code: code, body: "Invalid App Id or App key")
+        end
       end
     end
   end

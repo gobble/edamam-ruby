@@ -17,7 +17,7 @@ module Edamam
 
       VERB_MAP.keys.each do |method_name|
         define_method(method_name) do |path, params, header = {}|
-          status_code, body = request_json method_name, path, params, header
+          status_code, body = response_parser method_name, path, params, header
           response = ResponseBuilder.new(code: status_code, body: body)
           response.call
         end
@@ -25,12 +25,12 @@ module Edamam
 
       private
 
-      def request_json(method, path, params,header)
+      def response_parser(method, path, params,header)
         response = request(method, path, params,header)
         body = JSON.parse(response.body)
         return response.code, body
-      rescue JSON::ParserError, SocketError
-        response
+      rescue JSON::ParserError, SocketError, TypeError
+        response.code
       end
 
       def request(method, path, params = {},header = {})

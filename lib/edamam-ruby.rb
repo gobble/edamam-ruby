@@ -10,6 +10,3 @@ require "edamam-ruby/Utils/connection"
 require "edamam-ruby/food_database"
 require "edamam-ruby/client"
 require "pry"
-module Edamam
-  # Your code goes here...
-end
