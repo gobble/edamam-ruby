@@ -1,6 +1,6 @@
 module Edamam
   class FoodDatabase
-
+    attr_reader :client
     def initialize(client)
       @client = client
     end
@@ -9,9 +9,8 @@ module Edamam
       request = Utils::Connection.new
       request.get(
         Utils::Api::FOOD_DATABASE_URL,
-        {app_id: @client.app_id, app_key: @client.app_key,ingr: ingredient}
+        app_id: client.app_id, app_key: client.app_key, ingr: ingredient
       )
     end
-
   end
 end

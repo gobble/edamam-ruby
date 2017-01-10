@@ -6,15 +6,14 @@ module Edamam
         instance_variable_set("@#{attribute}", value)
       end
       yield self if block_given?
-      raise_error_if_keys_not_present
+      raise_error_if_keys_not_present unless app_key && app_id
       @food_database = FoodDatabase.new self
     end
 
     private
+
     def raise_error_if_keys_not_present
-      unless app_key && app_id
-        raise Utils::MissingKeyError, "Missing Api key or App Id"
-      end
+      raise Utils::MissingKeyError, 'Missing Api key or App Id'
     end
   end
 end
