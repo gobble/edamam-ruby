@@ -5,7 +5,7 @@ module Edamam
       @client = client
     end
 
-    def request(ingredient)
+    def nutritional_data(ingredient)
       connection = Utils::Connection.new
       connection.get(
         Utils::Api::FOOD_DATABASE_URL,
