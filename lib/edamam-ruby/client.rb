@@ -13,7 +13,7 @@ module Edamam
     private
 
     def raise_error_if_keys_not_present
-      raise Utils::MissingKeyError, 'Missing Api key or App Id'
+      raise Utils::MissingKeyError, "Missing Api key or App Id"
     end
   end
 end
