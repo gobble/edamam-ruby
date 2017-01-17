@@ -7,7 +7,7 @@ module Edamam
       end
       yield self if block_given?
       raise_error_if_keys_not_present unless app_key && app_id
-      @food_database = FoodDatabase.new self
+      @food_database = FoodDatabase.new(self)
     end
 
     private

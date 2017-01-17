@@ -28,7 +28,7 @@ module Edamam
       VERB_MAP.keys.each do |method_name|
         define_method(method_name) do |path, params, header = {}|
           status_code, body = process_request(method_name, path, params, header)
-          OpenStruct.new(body.merge(code: status_code))
+          OpenStruct.new(body.merge(code: status_code)) if status_code
         end
       end
 
@@ -37,7 +37,8 @@ module Edamam
       def process_request(method, path, params, header)
         response = make_request(method, path, params, header)
         raise_error_or_parse_body(response.code, response.body)
-      rescue Timeout::Error, SocketError, TypeError
+      rescue Timeout::Error, SocketError, TypeError => e
+        Edamam.log.error e.message
         nil
       end
 
