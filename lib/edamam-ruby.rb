@@ -3,7 +3,6 @@ require "uri"
 require "ostruct"
 require "json"
 require "logger"
-require "fileutils"
 require_relative "./edamam-ruby/version"
 require_relative "./edamam-ruby/utils/errors"
 require_relative "./edamam-ruby/utils/api"
@@ -24,18 +23,11 @@ module Edamam
     private
 
     def initialize_logger
-      log_file = create_log_file
-      logger = Logger.new(log_file)
+      logger = Logger.new(STDOUT)
       logger.level = Logger::DEBUG
       logger.datetime_format = "%Y-%m-%d %H:%M:%S "
       logger
     end
-
-    def create_log_file
-      FileUtils::mkdir_p("edamam_log") unless Dir.exists?("edamam_log")
-      File.open("edamam_log/edamam.log", "a+")
-    end
-
   end
 
 end
