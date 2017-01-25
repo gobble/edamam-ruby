@@ -23,7 +23,7 @@ module Edamam
     private
 
     def initialize_logger
-      logger = Logger.new(STDOUT)
+      logger = Logger.new(STDERR)
       logger.level = Logger::DEBUG
       logger.datetime_format = "%Y-%m-%d %H:%M:%S "
       logger
