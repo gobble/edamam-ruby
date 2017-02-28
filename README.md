@@ -33,7 +33,7 @@ Or you can instantiate with a block
 
 After instantiating, you can make a request to the Edamam foodrequest api
 ```
-    nutritional_data = client.food_request.nutritional_data("1 large apple")
+    nutritional_data = client.food_database.nutritional_data("1 large apple")
 ```
 This would return an object which has all the successfull fields from [Edamam api](https://developer.edamam.com/edamam-docs-nutrition-api).
 

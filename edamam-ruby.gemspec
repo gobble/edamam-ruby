@@ -6,8 +6,8 @@ require 'edamam-ruby/version'
 Gem::Specification.new do |spec|
   spec.name          = "edamam-ruby"
   spec.version       = Edamam::VERSION
-  spec.authors       = ["Olalekan Eyiowuawi"]
-  spec.email         = ["olalekan.eyiowuawi@andela.com"]
+  spec.authors       = ["Olalekan Eyiowuawi", "Chris Woodford", "Mayowa Pitan"]
+  spec.email         = ["olalekan.eyiowuawi@andela.com", "chris@gobble.com", "mayowa.pitan@andela.com"]
 
   spec.summary       = %q{This a ruby wrapper for the Edamam Nutrition api}
   spec.description   = %q{This a ruby wrapper for the Edamam Nutrition api}
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
