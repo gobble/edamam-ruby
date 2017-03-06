@@ -3,12 +3,12 @@ require "uri"
 require "ostruct"
 require "json"
 require "logger"
-require_relative "./edamam-ruby/version"
-require_relative "./edamam-ruby/utils/errors"
-require_relative "./edamam-ruby/utils/api"
-require_relative "./edamam-ruby/utils/connection"
-require_relative "./edamam-ruby/food_database"
-require_relative "./edamam-ruby/client"
+require "edamam-ruby/version"
+require "edamam-ruby/utils/errors"
+require "edamam-ruby/utils/api"
+require "edamam-ruby/utils/connection"
+require "edamam-ruby/food_database"
+require "edamam-ruby/client"
 
 module Edamam
   class << self
