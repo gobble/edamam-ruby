@@ -27,8 +27,7 @@ module Edamam
 
       VERB_MAP.keys.each do |method_name|
         define_method(method_name) do |path, params, header = {}|
-          status_code, body = process_request(method_name, path, params, header)
-          OpenStruct.new(body.merge(code: status_code)) if status_code
+          process_request(method_name, path, params, header)
         end
       end
 

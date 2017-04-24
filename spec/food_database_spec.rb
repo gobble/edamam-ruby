@@ -19,22 +19,26 @@ RSpec.describe Edamam::FoodDatabase do
 
     describe "when the correct credentials are passed" do
       it "returns an object containing the parsed body" do
-        response = {
-          calories: 520,
-          totalWeight: 1000,
-          dietLabels: [],
-          healthLabels: [],
-          cautions: [],
-        }.to_json
-        stub_out_going_request(correct_credentials, 200, response)
+        stub_out_going_request(correct_credentials, 200, test_response)
         food_database = instantiate_food_database(
           app_key: app_key,
           app_id: app_id
         )
-
         response = food_database.nutritional_data("1 large chicken")
 
-        expect(response).to be_an_instance_of OpenStruct
+        expect(response).to be_an_instance_of Edamam::Response::FoodDatabaseResponse
+      end
+
+      it "returns total nutrients from the response" do
+        stub_out_going_request(correct_credentials, 200, test_response)
+        food_database = instantiate_food_database(
+          app_key: app_key,
+          app_id: app_id
+        )
+        response = food_database.nutritional_data("1 large chicken").total_nutrients
+        result = response.kilocalories
+
+        expect(result).to eq(115.96)
       end
     end
   end
@@ -79,5 +83,18 @@ RSpec.describe Edamam::FoodDatabase do
 
   def ingredient
     "&ingr=1%20large%20chicken"
+  end
+
+  def test_response
+    {
+      calories: 520,
+      totalNutrients: {
+        ENERC_KCAL: {
+          label: "Energy",
+          quantity: 115.96,
+          unit: "kcal",
+        },
+      },
+    }.to_json
   end
 end

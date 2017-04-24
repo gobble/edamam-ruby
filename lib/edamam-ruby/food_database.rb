@@ -7,10 +7,20 @@ module Edamam
 
     def nutritional_data(ingredient)
       connection = Utils::Connection.new
-      connection.get(
+      status_code, response = connection.get(
         Utils::Api::FOOD_DATABASE_URL,
         app_id: client.app_id, app_key: client.app_key, ingr: ingredient
       )
+      process_response(status_code, response)
+    end
+
+    private
+
+    def process_response(status, body)
+      if status
+
+        Response::FoodDatabaseResponse.new(response: body)
+      end
     end
   end
 end
