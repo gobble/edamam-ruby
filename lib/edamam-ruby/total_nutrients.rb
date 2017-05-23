@@ -5,9 +5,16 @@ module Edamam
         @total_nutrients = total_nutrients
       end
 
-      def kilocalories
-        total_nutrients["ENERC_KCAL"]["quantity"]
+      NUTRIENT_KEYS = ["sugar", "na", "fat", "enerc_kcal"].freeze
+
+      NUTRIENT_KEYS.each do |nutrient|
+        define_method(nutrient) do
+          Nutrient.new(total_nutrients[nutrient.upcase])
+        end
       end
+
+      alias_method :sodium, :na
+      alias_method :kilocalories, :enerc_kcal
 
       private
 

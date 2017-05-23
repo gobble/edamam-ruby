@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Edamam::FoodDatabase do
   describe "#nutritional_data" do
 
-    describe "When wrong app_id or app_key is passed" do
+    context "when wrong app_id or app_key is passed" do
       it "raises UnauthorizedError" do
         stub_out_going_request(wrong_credentials, 401, "")
         food_database = instantiate_food_database(
@@ -17,7 +17,7 @@ RSpec.describe Edamam::FoodDatabase do
       end
     end
 
-    describe "when the correct credentials are passed" do
+    context "when the correct credentials are passed" do
       it "returns an object containing the parsed body" do
         stub_out_going_request(correct_credentials, 200, test_response)
         food_database = instantiate_food_database(
@@ -26,10 +26,10 @@ RSpec.describe Edamam::FoodDatabase do
         )
         response = food_database.nutritional_data("1 large chicken")
 
-        expect(response).to be_an_instance_of Edamam::Response::TotalNutrients
+        expect(response).to be_an_instance_of(Edamam::Response::TotalNutrients)
       end
 
-      it "returns total nutrients from the response" do
+      it "can return a nutrient value object from the response" do
         stub_out_going_request(correct_credentials, 200, test_response)
         food_database = instantiate_food_database(
           app_key: app_key,
@@ -38,7 +38,57 @@ RSpec.describe Edamam::FoodDatabase do
         response = food_database.nutritional_data("1 large chicken")
         result = response.kilocalories
 
-        expect(result).to eq(115.96)
+        expect(result).to be_an_instance_of(Edamam::Nutrient)
+      end
+
+      it "contains sodium quantity in the nutrient value object" do
+        stub_out_going_request(correct_credentials, 200, test_response)
+        food_database = instantiate_food_database(
+          app_key: app_key,
+          app_id: app_id
+        )
+        response = food_database.nutritional_data("1 large chicken")
+        sodium_value = response.sodium
+        result = sodium_value.quantity
+
+        expect(result).to eq(13.76)
+      end
+
+      it "indicates the unit of the quantity" do
+        stub_out_going_request(correct_credentials, 200, test_response)
+        food_database = instantiate_food_database(
+          app_key: app_key,
+          app_id: app_id
+        )
+        response = food_database.nutritional_data("1 large chicken")
+        sodium_value = response.sodium
+        result = sodium_value.unit
+
+        expect(result).to eq("mg")
+      end
+
+      it "contains sugar quantity among the nutrient values" do
+        stub_out_going_request(correct_credentials, 200, test_response)
+        food_database = instantiate_food_database(
+          app_key: app_key,
+          app_id: app_id
+        )
+        response = food_database.nutritional_data("1 large chicken")
+        result = response.sugar.quantity
+
+        expect(result).to eq(0.008)
+      end
+
+      it "contains fat quantity among the nutrient values" do
+        stub_out_going_request(correct_credentials, 200, test_response)
+        food_database = instantiate_food_database(
+          app_key: app_key,
+          app_id: app_id
+        )
+        response = food_database.nutritional_data("1 large chicken")
+        result = response.fat.quantity
+
+        expect(result).to eq(0.2583)
       end
     end
   end
@@ -93,6 +143,21 @@ RSpec.describe Edamam::FoodDatabase do
           label: "Energy",
           quantity: 115.96,
           unit: "kcal",
+        },
+        FAT: {
+          label: "Fat",
+          quantity: 0.2583,
+          unit: "g",
+        },
+        SUGAR: {
+          label: "Sugar",
+          quantity: 0.008,
+          unit: "g",
+        },
+        NA: {
+          label: "Sodium",
+          quantity: 13.76,
+          unit: "mg",
         },
       },
     }.to_json
