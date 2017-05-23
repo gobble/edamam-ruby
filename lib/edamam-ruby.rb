@@ -11,6 +11,7 @@ require "edamam-ruby/total_nutrients"
 require "edamam-ruby/utils/connection"
 require "edamam-ruby/food_database"
 require "edamam-ruby/client"
+require "edamam-ruby/nutrient"
 
 module Edamam
   class << self
